@@ -1,13 +1,5 @@
-# Makefile for Writing Make Files Example
-
-# *****************************************************
-# Variables to control Makefile operation
-
 CXX = gcc
 CXXFLAGS = -Wall -g -pthread
-
-# ****************************************************
-# Targets needed to bring the executable up to date
 
 server: server.o util.o
 	$(CXX) $(CXXFLAGS) -o server server.o util.o
