@@ -1,25 +1,28 @@
 #include "util.h"
-#include "time_util.h"
 
-struct server_t {
-	char *address.
-	char *port
-};
+#define POLLING_INTERVAL 1000
 
-void *send_request() {
+void send_request(server_t * server) {
     char buffer[BUFSIZE];
     bzero(buffer, BUFSIZE);
 
-	int sock = setupClient(argv[1], argv[2]);
+	int sock = setupClient(server->address, server->port);
 
 	_send(sock, "test");
     _recv(sock, buffer);
     printf("%s\n", buffer);
 }
 
-void *start_requests() {
+void *start_requests(void * t) {
+	server_t * server = t;
+	struct timeval tv;
+
     while (1) {
-        run_timer(POLLING_INTERVAL, send_request);
+    	tv.tv_sec = POLLING_INTERVAL;
+	    tv.tv_usec = 0;
+
+	    select(0, NULL, NULL, NULL, &tv);
+        send_request(server);
     }
 
     return NULL;
@@ -31,12 +34,12 @@ int main(int argc, char* argv[]) {
         die("Parameters: <Server Address> <Server Port>");
     }
 
-    struct server_t * server = (struct server_t *) malloc(sizeof(server));
+    server_t * server = (server_t *) malloc(sizeof(server));
     server->address = argv[1];
     server->port = argv[2];
 
     pthread_t timer_thread;
-    int status = pthread_create(&timer_thread, NULL, start_requests, server);
+    pthread_create(&timer_thread, NULL, start_requests, server);
 
     return 0;
 }

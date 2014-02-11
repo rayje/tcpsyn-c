@@ -4,3 +4,4 @@ server
 test.c
 server2.c
 .~lock*
+*.o

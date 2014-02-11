@@ -1,19 +1,30 @@
-CFLAGS=-Wall
-CC=gcc
+# Makefile for Writing Make Files Example
 
-all: client server
+# *****************************************************
+# Variables to control Makefile operation
 
-client:
-	$(CC) client.c -o $@ $^ $(CFLAGS)
+CXX = gcc
+CXXFLAGS = -Wall -g -pthread
 
-server:
-	$(CC) server.c -o $@ $^ $(CFLAGS)
+# ****************************************************
+# Targets needed to bring the executable up to date
+
+server: server.o util.o
+	$(CXX) $(CXXFLAGS) -o server server.o util.o
+
+client: client.o util.o
+	$(CXX) $(CXXFLAGS) -o client client.o util.o
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CXX) -c  $(CXXFLAGS) $*.c -o $*.o
+
+client.o: client.c util.h
+	$(CXX) $(CXXFLAGS) -c client.c
+
+server.o: server.c util.h
+	$(CXX) $(CXXFLAGS) -c server.c
+
+util.o: util.h
 
 clean:
-	rm -f js client server code.zip
-
-zip:
-	zip code.zip client.c makefile server.c util.h
+	rm -f client server *.o
