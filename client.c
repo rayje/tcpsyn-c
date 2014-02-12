@@ -11,8 +11,7 @@ void send_request(server_t * server) {
 	int sock = setupClient(server->address, server->port);
 
 	gettimeofday(&before, NULL);
-	int b =_send(sock, "1");
-	printf("Sent %d bytes\n", b);
+	_send(sock, "1");
     _recv(sock, buffer);
     gettimeofday(&after, NULL);
 
@@ -36,7 +35,6 @@ void start_requests(server_t * server) {
 
 int main(int argc, char* argv[]) {
     if (argc != 3) {
-    	printf("%s\n", "Dying");
         die("Parameters: <Server Address> <Server Port>");
     }
 
