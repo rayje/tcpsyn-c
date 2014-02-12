@@ -87,15 +87,14 @@ int setupClient(char * servIP, char * port) {
     int rc = connect(sock, (struct sockaddr *) &servAddr, sizeof(servAddr));
     gettimeofday(&after, NULL);
 
-    double t1=before.tv_sec+(before.tv_usec/1000000.0);
-    double t2=after.tv_sec+(after.tv_usec/1000000.0);
-
-    printf("\n%.6lf seconds elapsed\n", t2-t1);
-
-
     if (rc < 0) {
         die("connect() failed");
     }
+
+    int t1=(before.tv_sec*1000000)+before.tv_usec;
+    int t2=(after.tv_sec*1000000)+after.tv_usec;
+
+    printf("%d", t2-t1);
 
     return sock;
 }

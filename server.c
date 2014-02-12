@@ -18,10 +18,7 @@ int main(int argc, char* argv[]) {
 
 	    char buffer[BUFSIZE];
 	    _recv(clntSock, buffer);
-
-	    printf("%s\n", buffer);
-
-	    _send(clntSock, "result");
+	    _send(clntSock, "1");
 	}
 
     return 0;

@@ -1,6 +1,8 @@
 CXX = gcc
 CXXFLAGS = -Wall -g -pthread
 
+main: server client
+
 server: server.o util.o
 	$(CXX) $(CXXFLAGS) -o server server.o util.o
 
