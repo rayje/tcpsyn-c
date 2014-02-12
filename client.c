@@ -1,6 +1,6 @@
 #include "util.h"
 
-#define POLLING_INTERVAL 1
+#define POLLING_INTERVAL 10
 
 void send_request(server_t * server) {
 	struct timeval before;
