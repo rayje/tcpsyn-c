@@ -22,7 +22,7 @@ void send_request(server_t * server) {
 }
 
 void start_requests(server_t * server) {
-	struct timeval tv;
+    struct timeval tv;
 
     while (1) {
     	tv.tv_sec = POLLING_INTERVAL;
