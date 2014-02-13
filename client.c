@@ -3,15 +3,15 @@
 #define POLLING_INTERVAL 10
 
 void send_request(server_t * server) {
-	struct timeval before;
+    struct timeval before;
     struct timeval after;
     char buffer[BUFSIZE];
     bzero(buffer, BUFSIZE);
 
-	int sock = setupClient(server->address, server->port);
+    int sock = setupClient(server->address, server->port);
 
-	gettimeofday(&before, NULL);
-	_send(sock, "1");
+    gettimeofday(&before, NULL);
+    _send(sock, "1");
     _recv(sock, buffer);
     gettimeofday(&after, NULL);
 
@@ -26,9 +26,9 @@ void start_requests(server_t * server) {
 
     while (1) {
     	tv.tv_sec = POLLING_INTERVAL;
-	    tv.tv_usec = 0;
+	tv.tv_usec = 0;
 
-	    select(0, NULL, NULL, NULL, &tv);
+	select(0, NULL, NULL, NULL, &tv);
         send_request(server);
     }
 }
